@@ -208,17 +208,17 @@ function Section({ section, index }) {
   return (
     <div style={{ border:"1px solid #2a3028", borderRadius:"12px", overflow:"hidden", background:"#141a13", animation:`slideUp 0.4s ease ${index*0.08}s both` }}>
       <button onClick={() => setOpen(!open)} style={{ width:"100%", display:"flex", alignItems:"center", gap:"14px", padding:"18px 22px", background:"none", border:"none", cursor:"pointer", textAlign:"left" }}>
-        <span style={{ color:"#4a6644", fontSize:"1.1rem" }}>{icons[index]}</span>
+        <span style={{ color:"#6a8a68", fontSize:"1.1rem" }}>{icons[index]}</span>
         <span style={{ flex:1, fontFamily:"'Playfair Display',Georgia,serif", fontSize:"1rem", color:"#d4dac8", fontWeight:"600" }}>{section.name}</span>
         <GradeBadge grade={section.grade} />
-        <span style={{ color:"#4a6644", fontSize:"0.8rem", marginLeft:"8px" }}>{open?"▲":"▼"}</span>
+        <span style={{ color:"#6a8a68", fontSize:"0.8rem", marginLeft:"8px" }}>{open?"▲":"▼"}</span>
       </button>
       {open && (
         <div style={{ padding:"0 22px 22px" }}>
           <div style={{ width:"100%", height:"1px", background:"#2a3028", marginBottom:"18px" }} />
           <p style={{ color:"#9aaa8a", fontSize:"0.92rem", lineHeight:"1.75", margin:"0 0 16px", fontFamily:"'Lora',Georgia,serif" }}>{section.analysis}</p>
           <div style={{ background:"#1c2a1a", border:"1px solid #3a5038", borderRadius:"8px", padding:"14px 16px" }}>
-            <p style={{ fontSize:"0.65rem", letterSpacing:"0.16em", textTransform:"uppercase", color:"#5a8050", fontFamily:"'DM Mono',monospace", margin:"0 0 8px" }}>In-Camera Improvements</p>
+            <p style={{ fontSize:"0.65rem", letterSpacing:"0.16em", textTransform:"uppercase", color:"#8aaa70", fontFamily:"'DM Mono',monospace", margin:"0 0 8px" }}>In-Camera Improvements</p>
             <p style={{ color:"#b0c8a0", fontSize:"0.88rem", lineHeight:"1.7", margin:0, fontFamily:"'Lora',Georgia,serif" }}>{section.improvements}</p>
           </div>
         </div>
@@ -421,12 +421,12 @@ export default function App() {
             <div style={{ fontSize:"1.5rem" }}>◉</div>
             <div style={{ flex:1 }}>
               <h1 style={{ fontFamily:"'Playfair Display',Georgia,serif", fontSize:"1.25rem", fontWeight:"700", color:"#c8d8b0" }}>Field Composition Coach</h1>
-              <p style={{ fontSize:"0.7rem", color:"#5a7050", fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>Landscape Photography</p>
+              <p style={{ fontSize:"0.7rem", color:"#8a9a78", fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>Landscape Photography</p>
             </div>
             {apiKey ? (
               <button
                 onClick={() => { setShowKeyForm(v => !v); setApiKeyInput(""); }}
-                style={{ background:"transparent", border:"1px solid #2a4028", borderRadius:"7px", padding:"6px 14px", fontFamily:"'DM Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#5a8050", cursor:"pointer" }}
+                style={{ background:"transparent", border:"1px solid #4a6a48", borderRadius:"7px", padding:"6px 14px", fontFamily:"'DM Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#8aaa70", cursor:"pointer" }}
               >
                 {showKeyForm ? "Cancel" : "API Key ✓"}
               </button>
@@ -454,7 +454,7 @@ export default function App() {
                 />
                 <button className="btn-primary" onClick={saveApiKey} style={{ padding:"9px 20px", whiteSpace:"nowrap" }}>Save Key</button>
               </div>
-              <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.62rem", color:"#3a5038", letterSpacing:"0.08em", marginTop:"8px", paddingLeft:"4px" }}>
+              <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.62rem", color:"#6a8a68", letterSpacing:"0.08em", marginTop:"8px", paddingLeft:"4px" }}>
                 Your key is stored in session memory only — it's never sent anywhere except Anthropic's API.
               </p>
             </div>
@@ -482,9 +482,9 @@ export default function App() {
                   </div>
                 ) : (
                   <div style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:"10px", height:"100%", width:"100%" }}>
-                    <div style={{ fontSize:"2.5rem", color:"#2a4028" }}>⬡</div>
-                    <p style={{ fontFamily:"'Playfair Display',Georgia,serif", fontSize:"1rem", color:"#5a7050" }}>Drop your landscape photo here</p>
-                    <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.65rem", color:"#3a5038", letterSpacing:"0.1em", textTransform:"uppercase" }}>or click to browse</p>
+                    <div style={{ fontSize:"2.5rem", color:"#6a8a68" }}>⬡</div>
+                    <p style={{ fontFamily:"'Playfair Display',Georgia,serif", fontSize:"1rem", color:"#8a9a78" }}>Drop your landscape photo here</p>
+                    <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.65rem", color:"#6a8a68", letterSpacing:"0.1em", textTransform:"uppercase" }}>or click to browse</p>
                   </div>
                 )}
               </div>
@@ -508,8 +508,8 @@ export default function App() {
 
               {!image && (
                 <div style={{ textAlign:"center", marginTop:"60px" }}>
-                  <p style={{ fontFamily:"'Playfair Display',Georgia,serif", fontSize:"1rem", color:"#2a4028", marginBottom:"12px" }}>Upload a landscape photo to receive a detailed<br />in-field composition critique</p>
-                  <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.68rem", color:"#1e3020", letterSpacing:"0.12em", textTransform:"uppercase" }}>Subject · Lines · Balance · Mood</p>
+                  <p style={{ fontFamily:"'Playfair Display',Georgia,serif", fontSize:"1rem", color:"#6a8a68", marginBottom:"12px" }}>Upload a landscape photo to receive a detailed<br />in-field composition critique</p>
+                  <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.68rem", color:"#6a8a68", letterSpacing:"0.12em", textTransform:"uppercase" }}>Subject · Lines · Balance · Mood</p>
                 </div>
               )}
             </>
@@ -529,7 +529,7 @@ export default function App() {
               {/* Markup photo */}
               <div style={{ background:"#111709", border:"1px solid #2a3028", borderRadius:"16px", overflow:"hidden", marginBottom:"16px" }}>
                 <div style={{ padding:"18px 24px", borderBottom:"1px solid #1e2a1c" }}>
-                  <p style={{ fontSize:"0.62rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"#4a6644", fontFamily:"'DM Mono',monospace", marginBottom:"4px" }}>Composition Markup</p>
+                  <p style={{ fontSize:"0.62rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"#6a8a68", fontFamily:"'DM Mono',monospace", marginBottom:"4px" }}>Composition Markup</p>
                   <h2 style={{ fontFamily:"'Playfair Display',Georgia,serif", fontSize:"1.3rem", fontWeight:"700", color:"#d8e8c0" }}>{critique.title}</h2>
                 </div>
                 <div style={{ position:"relative", lineHeight:0 }}>
@@ -558,7 +558,7 @@ export default function App() {
               {/* Full critique header */}
               <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", gap:"20px", marginBottom:"28px", padding:"28px", background:"#111709", border:"1px solid #2a3028", borderRadius:"16px" }}>
                 <div style={{ flex:1 }}>
-                  <p style={{ fontSize:"0.65rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"#4a6644", fontFamily:"'DM Mono',monospace", marginBottom:"8px" }}>Full Critique</p>
+                  <p style={{ fontSize:"0.65rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"#6a8a68", fontFamily:"'DM Mono',monospace", marginBottom:"8px" }}>Full Critique</p>
                   <h2 style={{ fontFamily:"'Playfair Display',Georgia,serif", fontSize:"1.5rem", fontWeight:"700", color:"#d8e8c0", lineHeight:"1.3", marginBottom:"18px" }}>{critique.title}</h2>
                   <p style={{ color:"#8aaa7a", fontSize:"0.92rem", lineHeight:"1.8", fontStyle:"italic" }}>{critique.positiveSummary}</p>
                 </div>
@@ -575,14 +575,14 @@ export default function App() {
                 <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"20px" }}>
                   <span style={{ fontSize:"1.1rem" }}>◉</span>
                   <div>
-                    <p style={{ fontSize:"0.62rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"#5a8050", fontFamily:"'DM Mono',monospace", marginBottom:"2px" }}>Act Now · In Camera</p>
+                    <p style={{ fontSize:"0.62rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"#8aaa70", fontFamily:"'DM Mono',monospace", marginBottom:"2px" }}>Act Now · In Camera</p>
                     <h3 style={{ fontFamily:"'Playfair Display',Georgia,serif", fontSize:"1.1rem", color:"#b0d098", fontWeight:"700" }}>{critique.actionableSummary.headline}</h3>
                   </div>
                 </div>
                 <div style={{ display:"flex", flexDirection:"column", gap:"12px" }}>
                   {critique.actionableSummary.actions.map((action, i) => (
                     <div key={i} style={{ display:"flex", gap:"14px", alignItems:"flex-start", background:"#142012", borderRadius:"10px", padding:"14px 16px" }}>
-                      <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.7rem", color:"#4a7840", background:"#2a4828", borderRadius:"4px", padding:"3px 8px", flexShrink:0, marginTop:"1px" }}>{String(i+1).padStart(2,"0")}</span>
+                      <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.7rem", color:"#b0d098", background:"#2a4828", borderRadius:"4px", padding:"3px 8px", flexShrink:0, marginTop:"1px" }}>{String(i+1).padStart(2,"0")}</span>
                       <p style={{ color:"#a0c888", fontSize:"0.9rem", lineHeight:"1.65", fontFamily:"'Lora',Georgia,serif" }}>{action}</p>
                     </div>
                   ))}
