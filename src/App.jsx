@@ -253,6 +253,9 @@ function MarkupLegend({ markup, visibleTypes, onToggle }) {
 // ─── Main App ─────────────────────────────────────────────────────────────────
 
 export default function App() {
+  const [apiKey, setApiKey] = useState(() => sessionStorage.getItem("fcc_api_key") || "");
+  const [apiKeyInput, setApiKeyInput] = useState("");
+  const [showKeyForm, setShowKeyForm] = useState(false);
   const [image, setImage] = useState(null);
   const [imageBase64, setImageBase64] = useState(null);
   const [imageMediaType, setImageMediaType] = useState("image/jpeg");
@@ -262,6 +265,15 @@ export default function App() {
   const [dragOver, setDragOver] = useState(false);
   const [visibleTypes, setVisibleTypes] = useState(Object.keys(MARKUP_COLORS));
   const [imgDims, setImgDims] = useState({ w: 0, h: 0 });
+
+  const saveApiKey = () => {
+    const trimmed = apiKeyInput.trim();
+    if (!trimmed) return;
+    sessionStorage.setItem("fcc_api_key", trimmed);
+    setApiKey(trimmed);
+    setApiKeyInput("");
+    setShowKeyForm(false);
+  };
 
   const fileRef = useRef();
   const canvasRef = useRef();
@@ -334,7 +346,12 @@ export default function App() {
     try {
       const res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": apiKey,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true",
+        },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
           max_tokens: 4000,
@@ -402,11 +419,46 @@ export default function App() {
         <div style={{ borderBottom:"1px solid #1e2a1c", padding:"20px 0", background:"#0d1209", position:"sticky", top:0, zIndex:10 }}>
           <div style={{ maxWidth:"780px", margin:"0 auto", padding:"0 24px", display:"flex", alignItems:"center", gap:"14px" }}>
             <div style={{ fontSize:"1.5rem" }}>◉</div>
-            <div>
+            <div style={{ flex:1 }}>
               <h1 style={{ fontFamily:"'Playfair Display',Georgia,serif", fontSize:"1.25rem", fontWeight:"700", color:"#c8d8b0" }}>Field Composition Coach</h1>
               <p style={{ fontSize:"0.7rem", color:"#5a7050", fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>Landscape Photography</p>
             </div>
+            {apiKey ? (
+              <button
+                onClick={() => { setShowKeyForm(v => !v); setApiKeyInput(""); }}
+                style={{ background:"transparent", border:"1px solid #2a4028", borderRadius:"7px", padding:"6px 14px", fontFamily:"'DM Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#5a8050", cursor:"pointer" }}
+              >
+                {showKeyForm ? "Cancel" : "API Key ✓"}
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowKeyForm(true)}
+                style={{ background:"#3a1a1a", border:"1px solid #7a3030", borderRadius:"7px", padding:"6px 14px", fontFamily:"'DM Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#c87070", cursor:"pointer" }}
+              >
+                Set API Key
+              </button>
+            )}
           </div>
+
+          {/* API Key form */}
+          {showKeyForm && (
+            <div style={{ maxWidth:"780px", margin:"12px auto 0", padding:"0 24px" }}>
+              <div style={{ background:"#111709", border:"1px solid #2a4028", borderRadius:"10px", padding:"16px 20px", display:"flex", gap:"10px", alignItems:"center" }}>
+                <input
+                  type="password"
+                  placeholder="sk-ant-..."
+                  value={apiKeyInput}
+                  onChange={e => setApiKeyInput(e.target.value)}
+                  onKeyDown={e => e.key === "Enter" && saveApiKey()}
+                  style={{ flex:1, background:"#0d1209", border:"1px solid #2a4028", borderRadius:"7px", padding:"9px 14px", color:"#c8dbb8", fontFamily:"'DM Mono',monospace", fontSize:"0.82rem", outline:"none" }}
+                />
+                <button className="btn-primary" onClick={saveApiKey} style={{ padding:"9px 20px", whiteSpace:"nowrap" }}>Save Key</button>
+              </div>
+              <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.62rem", color:"#3a5038", letterSpacing:"0.08em", marginTop:"8px", paddingLeft:"4px" }}>
+                Your key is stored in session memory only — it's never sent anywhere except Anthropic's API.
+              </p>
+            </div>
+          )}
         </div>
 
         <div style={{ maxWidth:"780px", margin:"0 auto", padding:"40px 24px 80px" }}>
@@ -438,8 +490,13 @@ export default function App() {
               </div>
 
               {image && (
-                <div style={{ display:"flex", justifyContent:"center", marginBottom:"32px" }}>
-                  <button className="btn-primary" onClick={analyze} disabled={loading}>
+                <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"10px", marginBottom:"32px" }}>
+                  {!apiKey && (
+                    <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.7rem", color:"#c87070", letterSpacing:"0.08em" }}>
+                      ↑ Set your Anthropic API key above to analyze
+                    </p>
+                  )}
+                  <button className="btn-primary" onClick={apiKey ? analyze : () => setShowKeyForm(true)} disabled={loading}>
                     {loading ? (
                       <span style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                         <span className="spinner" /> Analyzing composition...
